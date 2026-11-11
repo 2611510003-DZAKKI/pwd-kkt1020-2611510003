@@ -6,3 +6,5 @@ pada pertemuan ke - 2 ini saya:
 
  1. menyiapkan artefak pertemuan-01 sebagai baseline pertemuan-02
  2. menambahkan Formulir pada section ID Contact, adapun Formulir itu belum ada Sytling
+ 3. saya mengerjakan latihan 3 CSS Dasar pada section#about,yaitu menambahkan <style> sebelum </head> dengan aturanya yaitu secara bertahap
+ 4. 
