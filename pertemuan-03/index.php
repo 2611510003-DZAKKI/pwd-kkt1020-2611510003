@@ -1,5 +1,5 @@
 <?php
-
+# ini untuk penulisan varibel
 $nama = "DZAKKI HIBATULLAH";
 const phi = 3.14;
 
@@ -38,7 +38,7 @@ for ($i = 1; $i <= $; $i++):
 ?>
 
 
-  
+
 
 <html lang="id">
 
@@ -52,9 +52,8 @@ for ($i = 1; $i <= $; $i++):
 
 <body>
   <header>
-    Profil </php echo $DZAKKI HIBATULLAH ?>
     <div class="header-top">
-      <h1>Profil Mahasiswa</h1>
+      <h1>Profil <?php echo $DZAKKI  ?></h1>
 
       <button
         class="nav-toggle"
