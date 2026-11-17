@@ -10,8 +10,35 @@ null = tanpa isi (ketiadaan)
 "teks" = tipe data string
 3.14 = tipe data decimal
 */
+$DZAKKI = false;
+$semester = 1:
 
+switch($semester) {
+  case 1:
+    $semester = "ku mulai belajar kuliah";
+    break;
+    case 2:
+      $semester = "ku mulai mendalami";
+      break;
+      case 3:
+        $semester = "ku mulai mempelajari semuanya";
+        break;
+        case 4:
+          $semester = "ku mulai melihat peluang";
+          break;
+          case 5:
+            $semester = "ku mulai melihat peluang pekerjaan";
+            break;
+
+}
+
+
+for ($i = 1; $i <= $; $i++):
+  echo 
 ?>
+
+
+  
 
 <html lang="id">
 
@@ -66,6 +93,12 @@ null = tanpa isi (ketiadaan)
       <article>
         <h3>Profil Singkat</h3>
         <p>Saya mahasiswa Program Studi Sistem Informasi.</p>
+        <?php
+        if ($DZAKKI == TRUE):
+          echo "<p>saya berwajah tampan (calon pengusaha).</p>";
+        endif;
+        ?>
+        <p>Semester <?php echo $semester ?> ()
 
         <h3>Target Belajar</h3>
 
