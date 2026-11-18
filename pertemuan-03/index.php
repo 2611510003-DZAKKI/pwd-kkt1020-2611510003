@@ -1,4 +1,7 @@
 <?php
+
+$nama = $_GET["nama"];
+
 # ini untuk penulisan varibel
 $nama = "DZAKKI HIBATULLAH";
 const phi = 3.14;
@@ -11,35 +14,57 @@ null = tanpa isi (ketiadaan)
 3.14 = tipe data decimal
 */
 $DZAKKI = false;
-$semester = 1:
+$semester = "1";
+$target = 8;
 
-switch($semester) {
+
+
+switch ($semester) {
   case 1:
-    $semester = "ku mulai belajar kuliah";
+    $semesterku = "ku mulai belajar kuliah";
+    $ngapain = "materi";
     break;
-    case 2:
-      $semester = "ku mulai mendalami";
-      break;
-      case 3:
-        $semester = "ku mulai mempelajari semuanya";
-        break;
-        case 4:
-          $semester = "ku mulai melihat peluang";
-          break;
-          case 5:
-            $semester = "ku mulai melihat peluang pekerjaan";
-            break;
-
+  case 2:
+    $semesterku = "ku mulai mendalami";
+    $ngapain = "menghapal dan mempraktekkan";
+    break;
+  case 3:
+    $semesterku = "ku mulai mempelajari semuanya";
+    $ngapain = "yang telah diberikan dosen";
+    break;
+  case 4:
+    $semesterku = "ku mulai melihat peluang";
+    $ngapain = "peluang sisi yang ada di kampus";
+    break;
+  case 5:
+    $semesterku = "ku mulai melihat peluang pekerjaan";
+    $ngapain = "kerjaa yang sesuai bidang";
+    break;
+  case 6:
+    $semesterku = "ku lah mulai mempersiapkan materi";
+    $ngapain = "mempersia[kan bekal materi untuk skripsi";
+    break;
+  case 7:
+    $semester = "ku mulai menyusun skripsi dan magang di tempat kerja";
+    $ngapain = "menyusun sambil magang";
+    break;
+  case 8:
+    $semesterku = "ku mulai sidang dan memperbaiki apa yang kurang,lalu setelah sidang saya wisuda";
+    $ngapain = "mengrevisi hasil salah dan menemui dosennya";
+    break;
 }
 
 
-for ($i = 1; $i <= $; $i++):
-  echo 
+for ($i = 1; $i <= 8; $i++):
+  echo $i . "<br>";
+endfor;
+$semesterku = "semester 1";
+$ngapain = "Belajar pemograman Web";
 ?>
 
 
 
-
+<!doctype html>
 <html lang="id">
 
 <head>
@@ -91,14 +116,20 @@ for ($i = 1; $i <= $; $i++):
 
       <article>
         <h3>Profil Singkat</h3>
-        <p>Saya mahasiswa Program Studi Sistem Informasi.</p>
+        <p>Saya mahasiswa Program Studi Teknik Informatika.</p>
         <?php
-        if ($DZAKKI == TRUE):
+        if ($DZAKKI):
           echo "<p>saya berwajah tampan (calon pengusaha).</p>";
         endif;
         ?>
-        <p>Semester <?php echo $semester ?> ()
+        <p>Semester <?php echo $semester ?> (<?= $semesterku ?>). ngapain <?= $ngapain ?> </p>
 
+        <?php
+        for ($i = 1; $i <= $target; $i++):
+          echo " <p>Semester <?php echo $semester ($semesterku). ngapain $ngapain </p>";
+
+        endfor;
+        ?>
         <h3>Target Belajar</h3>
 
         <ol>
@@ -117,7 +148,7 @@ for ($i = 1; $i <= $; $i++):
         <a href="https://github.com/username">profil GitHub saya</a>.
       </p>
 
-      <form id="contactForm" action="index.html" method="get" novalidate>
+      <form id="contactForm" action="index.php" method="post" novalidate>
         <div class="form-group">
           <label for="nama">Nama Lengkap</label><br />
 
