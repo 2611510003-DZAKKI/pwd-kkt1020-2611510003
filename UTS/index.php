@@ -305,9 +305,9 @@ switch ($programStudi) {
 						<option value="Pendidikan Informasi">Data Analytics</option>
 					</select>
 
-					<label for="alasan">Alasan Mengikuti Seminar Hari Ini </label>
+					<label for="alasan">Alasan kamu Mengikuti Seminar</label>
 					<textarea id="alasan" name="alasan"
-						placeholder="Tuliskan alasan kamu mengikuti seminar"
+						placeholder="Tuliskan aalasn mengikuti seminar"
 						rows="4" required></textarea>
 
 					<button type="submit">Kirim</button>
