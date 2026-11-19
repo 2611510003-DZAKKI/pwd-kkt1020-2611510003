@@ -1,6 +1,6 @@
 <?php
 
-$nama = $_GET["nama"];
+$nama = $_post["nama"];
 
 # ini untuk penulisan varibel
 $nama = "DZAKKI HIBATULLAH";
@@ -148,7 +148,7 @@ $ngapain = "Belajar pemograman Web";
         <a href="https://github.com/username">profil GitHub saya</a>.
       </p>
 
-      <form id="contactForm" action="index.php" method="post" novalidate>
+      <form id="contactForm" action="index.php" method="" novalidate>
         <div class="form-group">
           <label for="nama">Nama Lengkap</label><br />
 

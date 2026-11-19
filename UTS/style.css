@@ -195,6 +195,19 @@ section {
   cursor: pointer;
 }
 
+/* Bagian Seminar */
+#seminar {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+}
+
+#seminar h2 {
+    color: #073665;
+    border-bottom: 2px solid #073665;
+}
+
 /* Footer */
 footer {
   background-color: #003366;

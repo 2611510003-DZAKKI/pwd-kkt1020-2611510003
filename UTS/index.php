@@ -107,6 +107,7 @@ switch ($programStudi) {
 				<li><a href="#home">Beranda</a></li>
 				<li><a href="#about">Tentang</a></li>
 				<li><a href="#contact">Kontak</a></li>
+				<li><a href="#Seminar">Pendaftaran Seminar</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -277,7 +278,42 @@ switch ($programStudi) {
 					<p><strong>Pesan:</strong> <?= nl2br(htmlspecialchars($_SESSION["pesan"] ?? "", ENT_QUOTES, "UTF-8")) ?></p>
 				</article>
 			<?php endif; ?>
-		</section>
+
+			<section id="seminar">
+				<h2>Pendaftaran Seminar Teknologi</h2>
+
+				<form action="#" method="post">
+
+					<label for="nama">Nama Peserta</label>
+					<input type="text" id="nama" name="nama"
+						placeholder="Masukkan nama peserta" required>
+
+					<label for="nim">NIM</label>
+					<input type="text" id="nim" name="nim"
+						placeholder="Masukkan NIM" required>
+
+					<label for="prodi">Program Studi</label>
+					<input type="text" id="prodi" name="prodi"
+						placeholder="Masukkan program studi" required>
+
+					<label for="seminar">Pilihan Seminar</label>
+					<select id="seminar" name="pilihan_seminar" required>
+						<option value="">-- Pilih Seminar --</option>
+						<option value="Bisnis Digital">Artificial Intelligence</option>
+						<option value="Teknik Informatikat">Web Development</option>
+						<option value="Sistem Informasi">Cyber Security</option>
+						<option value="Pendidikan Informasi">Data Analytics</option>
+					</select>
+
+					<label for="alasan">Alasan Mengikuti Seminar Hari Ini </label>
+					<textarea id="alasan" name="alasan"
+						placeholder="Tuliskan alasan kamu mengikuti seminar"
+						rows="4" required></textarea>
+
+					<button type="submit">Kirim</button>
+					<button type="reset">Batal</button>
+
+			</section>
 	</main>
 
 	<footer>
