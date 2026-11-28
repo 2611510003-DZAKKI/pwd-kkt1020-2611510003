@@ -3,7 +3,7 @@
 session_start();
 
 require_once("fungsi.php"); #Penggunaan require_once() memastikan berkas tersebut tersedia dan tidak dimuat berulang kali.
-
+require_once("koneksi.php");
 // P9: Memproses data formulir dan menyimpannya ke dalam session.
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$nama = trim((string) ($_POST["nama"] ?? ""));
@@ -82,6 +82,50 @@ switch ($programStudi) {
 
 // P9: Larik terindeks untuk menyimpan teknologi web yang dipelajari.
 $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
+<?php if (count($dataKontak) > 0 || $pesanGalat !== ""): ?>
+<article id="hasilKontak" class="submission-result" aria-live="polite">
+    <h3>Data Kontak dari Basis Data</h3>
+
+    <?php if ($pesanGalat !== ""): ?>
+        <p class="form-feedback-error"><?= bersihkan($pesanGalat); ?></p>
+
+    <?php elseif (count($dataKontak) === 0): ?>
+        <p>Belum ada data kontak yang tersedia.</p>
+
+    <?php else: ?>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Semester</th>
+                    <th>Tanggal</th>
+                    <th>Jenis Pesan</th>
+                    <th>Minat</th>
+                    <th>Prodi</th>
+                    <th>Pesan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($dataKontak as $baris): ?>
+                <tr>
+                    <td><?= bersihkan($baris["id"]); ?></td>
+                    <td><?= bersihkan($baris["nama"]); ?></td>
+                    <td><?= bersihkan($baris["email"]); ?></td>
+                    <td><?= bersihkan($baris["semester"]); ?></td>
+                    <td><?= bersihkan($baris["tanggal"]); ?></td>
+                    <td><?= bersihkan($baris["jenis_pesan"]); ?></td>
+                    <td><?= bersihkan($baris["minat"]); ?></td>
+                    <td><?= bersihkan($baris["prodi"]); ?></td>
+                    <td><?= nl2br(bersihkan($baris["pesan"])); ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</article>
+<?php endif; ?>
 ?>
 <!doctype html>
 <html lang="id">
@@ -261,51 +305,76 @@ $teknologiWeb = ["HTML", "CSS", "JavaScript", "PHP", "MySQL"];
 				<p class="form-feedback" data-form-feedback aria-live="polite"></p>
 			</form>
 
-			<?php if (isset($_SESSION["form_data"])): ?>
-				<?php
-				// Larik asosiatif untuk menghubungkan nama field dengan label.
-				/*
-				kunci larik tidak harus berupa angka. 
-				Kunci dapat berupa teks yang memiliki makna tertentu.
-				*/
-				$labelMap = [
-					"nama"        => "Nama Lengkap",
-					"email"       => "Email",
-					"semester"    => "Semester",
-					"tanggal"     => "Tanggal Kunjungan",
-					"jenis_pesan" => "Jenis Pesan",
-					"prodi"       => "Program Studi",
-				];
-				?>
+			<?php
+// --- OPERASI READ DARI BASIS DATA (Menggantikan Tampilan Session) ---
+// Mengambil data kontak TERBARU dari tabel (ORDER BY id DESC LIMIT 1)
+$sql = "SELECT nama, email, semester, tanggal, jenis_pesan, minat, prodi, pesan 
+        FROM tbl_kontak_2611510003 
+        ORDER BY id DESC 
+        LIMIT 1";
+
+$hasilKueri = mysqli_query($koneksi, $sql);
+$dataTerbaru = null;
+
+// Penanganan kondisi kueri berhasil dan ada datanya
+if ($hasilKueri && mysqli_num_rows($hasilKueri) > 0) {
+    $dataTerbaru = mysqli_fetch_assoc($hasilKueri);
+}
+?>
+
+<?php if ($dataTerbaru): ?>
+    <article id="hasilKontak" class="submission-result" aria-live="polite">
+        <h3>Data Formulir yang Dikirim (Dari Basis Data)</h3>
+
+        <?php
+        // Larik asosiatif untuk menghubungkan nama field dengan label (sama seperti sebelumnya)
+        $labelMap = [
+            "nama"        => "Nama Lengkap",
+            "email"       => "Email",
+            "semester"    => "Semester",
+            "tanggal"     => "Tanggal Kunjungan",
+            "jenis_pesan" => "Jenis Pesan",
+            "prodi"       => "Program Studi",
+        ];
+        ?>
+
+        <?php foreach ($labelMap as $key => $label): ?>
+            <!-- Pengamanan keluaran HTML menggunakan fungsi bersihkan() -->
+            <p><strong><?= bersihkan($label); ?>:</strong> <?= bersihkan($dataTerbaru[$key]); ?></p>
+        <?php endforeach; ?>
+
+        <p><strong>Topik yang Diminati:</strong></p>
+        <?php 
+        // CATATAN PENTING: Di database, kolom 'minat' bertipe VARCHAR (string), 
+        // misalnya: "HTML, CSS". Kita ubah menjadi array agar bisa ditampilkan sebagai <ul><li>
+        $minatArray = explode(", ", $dataTerbaru["minat"]); 
+        ?>
+        
+        <?php if (count($minatArray) > 0 && trim($minatArray[0]) !== ""): ?>
+            <ul>
+                <?php foreach ($minatArray as $topik): ?>
+                    <li><?= bersihkan(trim($topik)); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Belum ada topik yang dipilih.</p>
+        <?php endif; ?>
+
+        <p><strong>Pesan:</strong> <?= nl2br(bersihkan($dataTerbaru["pesan"])); ?></p>
+    </article>
+
+<?php else: ?>
+    <!-- Penanganan kondisi data tidak tersedia (Sesuai indikator P11) -->
+    <article id="hasilKontak" class="submission-result" aria-live="polite">
+        <h3>Data Formulir yang Dikirim</h3>
+        <p>Belum ada data kontak yang tersedia di basis data.</p>
+    </article>
+<?php endif; ?>
+			
 				<article id="hasilKontak" class="submission-result" aria-live="polite">
 					<h3>Data Formulir yang Dikirim</h3>
 
-					<?php foreach ($labelMap as $key => $label): ?>
-						<p><strong><?= bersihkan($label); ?>:</strong> <?= bersihkan($_SESSION["form_data"][$key]); ?></p>
-					<?php endforeach; ?>
-
-					<?php
-					/*
-						$key untuk mendapatkan kunci larik.
-						$label untuk mendapatkan nilai larik.
-						$key untuk mengakses data formulir pada $_SESSION["form_data"].
-					*/
-					?>
-
-					<p><strong>Topik yang Diminati:</strong></p>
-					<?php if (count($_SESSION["form_data"]["minat"]) > 0): ?>
-						<ul>
-							<?php foreach ($_SESSION["form_data"]["minat"] as $topik): ?>
-								<li><?= bersihkan($topik); ?></li>
-							<?php endforeach; ?>
-						</ul>
-					<?php else: ?>
-						<p>Belum ada topik yang dipilih.</p>
-					<?php endif; ?>
-
-					<p><strong>Pesan:</strong> <?= nl2br(bersihkan($_SESSION["form_data"]["pesan"])); ?></p>
-				</article>
-			<?php endif; ?>
+			
 		</section>
 	</main>
 
